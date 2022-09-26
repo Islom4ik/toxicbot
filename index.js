@@ -3,7 +3,7 @@ require('dotenv').config();
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const replaceDisallowedWords = require('disallowed-word-filter')
 const myFilter = new replaceDisallowedWords({
-  additionalWords: 'бл, хуй, похуй, сука, с-у-к-а, п-и-д-о-р',
+  additionalWords: 'хуй, похуй, сука, с-у-к-а, п-и-д-о-р, зебо, zebo, Зебо',
 })
 
 bot.start((ctx) => ctx.reply('Токсик сразу говорю!'));
