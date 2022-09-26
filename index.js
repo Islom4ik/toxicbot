@@ -16,7 +16,7 @@ bot.on("message", async (ctx) => {
         let filter = await myFilter.check(ctx.message.text, true)
         if(filter == true){
             await ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
-            await ctx.replyWithVideo({source: './memeblog-fresco.gif'}, {caption: `🤬 @${ctx.message.from.username}, не матерись! Я тоже могу но я бот...`});
+            await ctx.reply(`🤬 @${ctx.message.from.username}, не матерись! Я тоже могу но я бот...`);
         }else {
             return
         }
@@ -30,7 +30,7 @@ bot.on("edited_message", async (ctx) => {
         let filter = await myFilter.check(ctx.editedMessage.text, true)
         if(filter == true) {
             await ctx.tg.deleteMessage(ctx.editedMessage.chat.id, ctx.editedMessage.message_id);
-            await ctx.replyWithVideo({source: './memeblog-fresco.gif'}, {caption: `🤬 @${ctx.editedMessage.from.username}, не матерись! Я тоже могу но я бот...`});
+            await ctx.reply(`🤬 @${ctx.editedMessage.from.username}, не матерись!`);
         }else {
             return
         }
