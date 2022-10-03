@@ -16,8 +16,8 @@ bot.on("message", async (ctx) => {
         let filter = await myFilter.check(ctx.message.text, true)
         if(filter == true){
             await ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
-            await ctx.reply(`🤬 @${ctx.message.from.username}, не матерись по братский...\nТам был следующий текст:`);
-            await ctx.reply(`||${ctx.message.text}||`, { parse_mode: 'MarkdownV2' })
+            let tomsg = await ctx.reply(`🤬 @${ctx.message.from.username}, не матерись по братский...\nТам был следующий текст:`);
+            await ctx.reply(`||${ctx.message.text}||`, { parse_mode: 'MarkdownV2', reply_to_message_id: tomsg.message_id})
         }else {
             return
         }
@@ -31,8 +31,8 @@ bot.on("edited_message", async (ctx) => {
         let filter = await myFilter.check(ctx.editedMessage.text, true)
         if(filter == true) {
             await ctx.tg.deleteMessage(ctx.editedMessage.chat.id, ctx.editedMessage.message_id);
-            await ctx.reply(`🤬 @${ctx.editedMessage.from.username}, не матерись по братский...\nТам был следующий текст:`);
-            await ctx.reply(`||${ctx.message.text}||`, { parse_mode: 'MarkdownV2' })
+            let tomsg = await ctx.reply(`🤬 @${ctx.editedMessage.from.username}, не матерись по братский...\nТам был следующий текст:`);
+            await ctx.reply(`||${ctx.editedMessage.text}||`, { parse_mode: 'MarkdownV2', reply_to_message_id: tomsg.message_id})
         }else {
             return
         }
