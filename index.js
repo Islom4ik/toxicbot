@@ -1,9 +1,9 @@
-const { Telegraf } = require('telegraf');
+const {Telegraf, fmt} = require('telegraf');
 require('dotenv').config();
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const replaceDisallowedWords = require('disallowed-word-filter')
 const myFilter = new replaceDisallowedWords({
-  additionalWords: 'хуй, похуй, сука, с-у-к-а, п-и-д-о-р, зебо, zebo, Зебо',
+  additionalWords: 'сука',
 })
 
 bot.start((ctx) => ctx.reply('Токсик сразу говорю!'));
@@ -16,7 +16,8 @@ bot.on("message", async (ctx) => {
         let filter = await myFilter.check(ctx.message.text, true)
         if(filter == true){
             await ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id);
-            await ctx.reply(`🤬 @${ctx.message.from.username}, не матерись! Я тоже могу но я бот...`);
+            await ctx.reply(`🤬 @${ctx.message.from.username}, не матерись по братский...\nТам был следующий текст:`);
+            await ctx.reply(`||${ctx.message.text}||`, { parse_mode: 'MarkdownV2' })
         }else {
             return
         }
@@ -30,7 +31,8 @@ bot.on("edited_message", async (ctx) => {
         let filter = await myFilter.check(ctx.editedMessage.text, true)
         if(filter == true) {
             await ctx.tg.deleteMessage(ctx.editedMessage.chat.id, ctx.editedMessage.message_id);
-            await ctx.reply(`🤬 @${ctx.editedMessage.from.username}, не матерись!`);
+            await ctx.reply(`🤬 @${ctx.editedMessage.from.username}, не матерись по братский...\nТам был следующий текст:`);
+            await ctx.reply(`||${ctx.message.text}||`, { parse_mode: 'MarkdownV2' })
         }else {
             return
         }
